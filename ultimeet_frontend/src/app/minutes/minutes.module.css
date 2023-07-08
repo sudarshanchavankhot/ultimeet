@@ -1,0 +1,147 @@
+.scrollbarNone::-webkit-scrollbar,
+.scrollNone::-webkit-scrollbar {
+  display: none;
+}
+
+.borderGradient,
+.borderGradient2 {
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+}
+
+.borderGradient:before,
+.borderGradient:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 6px;
+  left: 0;
+}
+
+.borderGradient:before {
+  background: linear-gradient(to right, #b37d33, white);
+}
+
+.borderGradient:after {
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right, #b37d33, white);
+  top: 98.5%;
+}
+
+.tabBg div:last-child {
+  background: #f5faff !important;
+}
+
+.transcriptContainer {
+  height: 566px;
+  overflow-y: scroll;
+}
+
+.transcriptContainer::-webkit-scrollbar,
+.scrollStyle::-webkit-scrollbar {
+  width: 3px;
+}
+
+.transcriptContainer::-webkit-scrollbar-track,
+.scrollStyle::-webkit-scrollbar-track {
+  background: white;
+}
+
+.transcriptContainer::-webkit-scrollbar-thumb,
+.scrollStyle::-webkit-scrollbar-thumb {
+  border-radius: 0.926691rem;
+  background: #d9d9d9;
+}
+
+.videoFrame {
+  object-fit: fill !important;
+  height: 100% !important;
+  border-radius: 7px;
+}
+
+
+.userSelector{
+  cursor: pointer;
+}
+
+.userSelector:hover{
+  cursor: pointer;
+  background-color: #42a7ef1b;
+}
+.control {
+  width: 100px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #F3F7FF;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 40px;
+}
+
+
+.playButton{
+    position: absolute;
+    display: block;
+    margin: auto;
+    height: 40px;
+    width: 40px;
+    margin-top: 145px;
+    margin-left: 245px;
+    background: #00000057;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 25;
+}
+.click{
+
+}
+.click:hover{
+
+}
+
+.summaryText{
+  color: #272D37;
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: -0.1px;
+}
+
+
+.meetingOverview{
+color: var(--gray-50, #5F6D7E);
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: -0.1px;
+}
+
+.actionItemHeader{
+  color: #5F6D7E;
+/* Text XS/Medium */
+font-family: Inter;
+font-size: 13px;
+font-style: normal;
+font-weight: 500;
+line-height: 18px;
+letter-spacing: -0.1px;
+}
+
+.actionItemText{
+  color: var(--gray-700, #272D37);
+/* Text S/Medium */
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 20px;
+letter-spacing: -0.1px;
+}
