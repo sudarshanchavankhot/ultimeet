@@ -8,7 +8,7 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-
+import ReadMoreReact from 'read-more-react';
 import styles from "../../app/minutes/minutes.module.css";
 import { BsChevronDown } from "react-icons/bs";
 import { profilePic } from "@/constants/data";
@@ -107,7 +107,7 @@ const data = [
     ],
   },
   {
-    label: "Detailed Conversation Summary",
+    label: "Conversation Summary",
     value: "conversationSummary",
     desc: {
       debates: [
@@ -187,20 +187,31 @@ export default function MeetingOverview() {
   const [meetingShow, setMeetingShow] = useState(true);
   const [transcript, setTranscript] = useState({})
   const [summary, setSummary] = useState({})
+  const [collapse, setCollapse] = useState({})
   useEffect(() => {
 
-    axiosInstance().get("recording_transcription/transcription_view/3/").then((res) => {
+    axiosInstance().get("recording_transcription/transcription_view/2/").then((res) => {
+      let transcript = [...res?.data?.transcript]
+      transcript.map((item)=>{
+        item.text.length >200 ? item.collapse =true :null
+      })
       setTranscript(res?.data?.transcript)
-
+     
     }).catch(e => new Error(e))
 
 
-    axiosInstance().get("meeting_summary/meeting/23/summary_view/").then((res) => {
+    axiosInstance().get("meeting_summary/meeting/2/summary_view/").then((res) => {
       let summryData = res?.data;
       setSummary(summryData)
 
     }).catch(e => new Error(e))
   }, [])
+ const collapseHandler =(index)=>{
+   const transcriptCollapse =[...transcript]
+   transcriptCollapse[index].collapse = !transcriptCollapse[index].collapse
+   setTranscript(transcriptCollapse)
+
+ }
 
   //const { transcript_data } = transcript;
   return (
@@ -243,6 +254,7 @@ export default function MeetingOverview() {
           <TabsBody className="border-t border-[#e7e9eb]">
             <TabPanel value={"transcript"}>
               <div className={`${styles.transcriptContainer}`}>
+
                 {
                   transcript.length > 0 ? transcript.map((item, index) => {
                     return (
@@ -264,9 +276,14 @@ export default function MeetingOverview() {
                             alt={"speaker"}
                             className="rounded-full"
                           />
-                          <p className={`text-primary text-base font-medium ${styles.summaryText}`}>
+                          <p  style={{ cursor:'pointer' }} onClick={item?.text.length > 260 ?()=>collapseHandler(index):null} className={`text-primary text-base font-medium ${styles.summaryText}`}>
                             {
-                              item?.text.length > 300 ? `${item?.text.slice(0, 300)}` : item?.text
+                              item?.collapse ? `${item?.text.slice(0, 280)}` : item?.text
+                            }
+                            
+                            {
+
+                              item?.text.length > 280 ? <span   style={{ color: 'blue', cursor:'pointer' }} >  {!item.collapse ? `Read less...` :`Read More...`}</span> : ''
                             }
                           </p>
                         </div>
@@ -328,7 +345,7 @@ export default function MeetingOverview() {
                     </ul>
                   </div>
                 </div> */}
-                
+
                 <div
                   style={{
                     fontFamily: "Inter",
@@ -354,7 +371,7 @@ export default function MeetingOverview() {
                     </ul>
                   </div>
                 </div>
-              
+
               </div>
             </TabPanel>
           </TabsBody>

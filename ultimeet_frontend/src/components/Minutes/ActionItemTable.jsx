@@ -206,7 +206,7 @@ export default function ActionItemTable() {
                       <Typography className="font-inter flex items-center gap-2">
                         <span
                           className={`text-sm px-2 py-1 rounded-sm
-                        ${priority === "High" && `{text-[#CA0C0C] bg-[#FDEBEB] ${styles.urgentText}}`
+                        ${priority === "High" && "text-[#CA0C0C] bg-[#FDEBEB] rounded"}
                             }
                         ${priority === "Medium" && "text-[#EEA23E] bg-[#FFF8EB]"
                             }

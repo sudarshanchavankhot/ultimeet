@@ -25,7 +25,7 @@ const Minutes = () => {
   const [toggleAccordion, setToggleAccordion] = useState(true);
   const [meetingOverview, setMeetingOverview] = useState({})
   useEffect(() => {
-    axiosInstance().get('recording_transcription/get_meeting/1/').then((res) => {
+    axiosInstance().get('recording_transcription/get_meeting/2/').then((res) => {
       setMeetingOverview(res.data)
 
     }).catch((e) => new Error(e))

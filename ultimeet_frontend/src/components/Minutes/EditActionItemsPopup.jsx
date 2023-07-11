@@ -95,6 +95,7 @@ export default function EditActionItemsPopup({action_item_id,name, open, handleO
   }
    // co
   const handleDateChange =($event)=>{
+    console.log($event.target.value,"$event.target.valu")
     setDueOn($event.target.value)
    // console.log($event.target.value);
   }
@@ -168,8 +169,8 @@ export default function EditActionItemsPopup({action_item_id,name, open, handleO
               <div className="col-span-1">
                 <DropDownnComp label="Priority" list={priorityList} onSelectValue={handlePriorityChange} selectedValue={priority}  />
               </div>
-              <Input type="date" label="Due on" onChange={handleDateChange} value={due_on} className="col-span-1" />
-
+              <Input type="date" label="Due on" onChange={handleDateChange} value={Due_on} className="col-span-1" />
+              <p>{Due_on}</p>
             </div>
             <div className="grid grid-flow-col grid-cols-2 gap-8 mt-6">
               <div className="col-span-1">
