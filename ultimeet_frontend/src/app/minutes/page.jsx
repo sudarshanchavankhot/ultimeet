@@ -25,7 +25,7 @@ const Minutes = () => {
   const [toggleAccordion, setToggleAccordion] = useState(true);
   const [meetingOverview, setMeetingOverview] = useState({})
   useEffect(() => {
-    axiosInstance().get('recording_transcription/get_meeting/1/').then((res) => {
+    axiosInstance().get('recording_transcription/get_meeting/2/').then((res) => {
       setMeetingOverview(res.data)
 
     }).catch((e) => new Error(e))
@@ -311,7 +311,7 @@ const Minutes = () => {
                   }}
                 >
                   <p className="text-grayText text-base">
-                    Mar 27, 12:00 pm - 1:00 pm
+                    July 20, 12:00 pm - 1:00 pm
                   </p>
                   <p className="text-primary text-base">Join with google meet</p>
                 </div>
@@ -324,7 +324,7 @@ const Minutes = () => {
                   <div className="flex items-center">
                     {userDetails.attend.slice(0, 4).map((user, index) => {
                       return (
-                        <UserProfileComp key={index} profilePhoto={profilePic} name={user.name} index={index} />
+                        <UserProfileComp key={index} profilePhoto={user.profilePics} name={user.name} index={index} />
                       );
                     })}
                   </div>
@@ -362,7 +362,7 @@ const Minutes = () => {
                   <div></div>
                 </div>
                 <p className="text-grayText text-base font-medium pt-1">
-                  Last updated on 22 Jun
+                  Last updated on 08 July
                 </p>
               </div>
 
@@ -379,7 +379,7 @@ const Minutes = () => {
                     <div>
                       <h1 className="text-primary font-medium text-lg">75%</h1>
                       <p className="text-grayText text-base font-medium pt-1">
-                        Last updated on 22 Jun
+                        Last updated on 08 July
                       </p>
                     </div>
                     <div></div>
@@ -399,16 +399,18 @@ const Minutes = () => {
                     <div>
                       <h1 className="text-primary font-medium text-lg">87%</h1>
                       <p className="text-grayText text-base font-medium pt-1">
-                        Last updated on 22 Jun
+                        Last updated on 08 July
                       </p>
                     </div>
                     <div className="flex items-center gap-4">
                       <ColorChangingProgressBar
                         percentage={80}
+                        profilePic={"https://www.classicaloasis.com/wp-content/uploads/2014/03/profile-square.jpg"}
                         color={"#B91d1d"}
                       />
                       <ColorChangingProgressBar
                         percentage={50}
+                        profilePic={"https://media.istockphoto.com/id/1504194952/photo/pretty-smiling-joyfully-female-dressed-casually-smiling-looking-with-satisfaction-at-camera.webp?b=1&s=170667a&w=0&k=20&c=Ll31aFaWj2omz-4wqxrsOWXwLJ5XfZEm8YUehHEbWGU="}
                         color={"#0066ff"}
                       />
                     </div>
@@ -428,7 +430,7 @@ const Minutes = () => {
                     <div>
                       <h1 className="text-primary font-medium text-lg">75%</h1>
                       <p className="text-grayText text-base font-medium pt-1">
-                        Last updated on 22 Jun
+                        Last updated on 08 July
                       </p>
                     </div>
                     <div></div>

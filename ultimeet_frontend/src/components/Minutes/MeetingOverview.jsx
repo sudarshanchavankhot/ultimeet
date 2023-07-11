@@ -189,7 +189,7 @@ export default function MeetingOverview() {
   const [summary, setSummary] = useState({})
   useEffect(() => {
 
-    axiosInstance().get("recording_transcription/transcription_view/3/").then((res) => {
+    axiosInstance().get("recording_transcription/transcription_view/2/").then((res) => {
       setTranscript(res?.data?.transcript)
 
     }).catch(e => new Error(e))
@@ -266,7 +266,7 @@ export default function MeetingOverview() {
                           />
                           <p className={`text-primary text-base font-medium ${styles.summaryText}`}>
                             {
-                              item?.text.length > 300 ? `${item?.text.slice(0, 300)}` : item?.text
+                              item?.text
                             }
                           </p>
                         </div>
