@@ -136,12 +136,28 @@ letter-spacing: -0.1px;
 }
 
 .actionItemText{
-  color: var(--gray-700, #272D37);
+color: var(--gray-700, #272D37);
 /* Text S/Medium */
 font-family: Inter;
 font-size: 14px;
 font-style: normal;
 font-weight: 500;
+line-height: 20px;
+letter-spacing: -0.1px;
+}
+
+.urgent {
+  
+}
+.urgentText{
+
+  border-radius: 5px;
+  background: #FDEBEB;
+  color: #CA0C0C ;
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
 line-height: 20px;
 letter-spacing: -0.1px;
 }

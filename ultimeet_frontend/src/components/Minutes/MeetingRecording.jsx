@@ -49,9 +49,9 @@ const MeetingRecoring = () => {
     }
 
     const onClickUser =(data) =>{
-        vidRef.current.currentTime= data/1000;
+        vidRef.current.currentTime = data/1000;
         vidRef.current.play();
-        setPlay(!play)
+        setPlay(!play) 
     }
 
     const onTimeUpdate = () => {
@@ -62,9 +62,11 @@ const MeetingRecoring = () => {
        
         setPlayTime(c) 
     }
-
+   const onDragStop = (width,time) => {
+   /// console.log(width, time)
+   }
     useEffect(() => {
-        axiosInstance().get('meeting_summary/meeting/2/users_audio_breakpoints/').then((res) => {
+        axiosInstance().get('meeting_summary/meeting/1/users_audio_breakpoints/').then((res) => {
             setMeetingRecording(res.data)
             let b = vidRef?.current?.duration.toFixed(2) || 1;
             setDuration(b)
@@ -124,14 +126,14 @@ const MeetingRecoring = () => {
                             {users_audio_breakpoints?.length > 0 ? users_audio_breakpoints.map((user, index) => {
                                 return (
                                     <ul
-                                        onClick={()=>userTalkData(user?.audio_breakpoints?.start,profilePic)}
+                                        onClick={()=>userTalkData(user?.audio_breakpoints?.start,user?.avatar)}
                                         key={index}
                                         className={`${styles.userSelector} grid grid-flow-col grid-cols-2 text-grayText text-sm border-b border-[#EAEBF0] h-16 place-content-center ${styles.userTalkData}`}
                                     >
                                         <li style={{fontSize:'13px', color:"#272D37"}} className="text-primary text-base flex items-center gap-2 pl-4">
                                             
                                             <Image
-                                                src={profilePic||user?.avatar}
+                                                src={user?.avatar || profilePic}
                                                 width={28}
                                                 height={28}
                                                 className="object-cover rounded-full"
@@ -153,7 +155,13 @@ const MeetingRecoring = () => {
 
 
                 <div className="bg-white  rounded-md shadow-sm pl-2 pr-3" style={{ height: '90px' }}>
-                        <Seekbar data={playerTalk} time={playTime} avatar={avatar} onClickonUser={onClickUser}/>
+                        <Seekbar 
+                            data={playerTalk} 
+                            time={playTime} 
+                            avatar={avatar} 
+                            onClickonUser={onClickUser} 
+                            onDragStop={onDragStop}
+                        />
                     <div className="grid grid-cols-3 gap-4">
                         <div className="..."></div>
                         <div className="...">

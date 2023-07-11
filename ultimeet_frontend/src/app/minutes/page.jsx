@@ -19,12 +19,13 @@ import ColorChangingProgressBar from "@/components/Minutes/ColorChangingProgress
 import { axiosInstance } from '@/api/Axios'
 import moment from 'moment';
 import MeetingRecoring from "@/components/Minutes/MeetingRecording";
+import NotesAndComments from "@/components/Minutes/NotesAndComments"
 import { SeekBarContext } from "@/app/context/SeekbarContex";
 const Minutes = () => {
   const [toggleAccordion, setToggleAccordion] = useState(true);
   const [meetingOverview, setMeetingOverview] = useState({})
   useEffect(() => {
-    axiosInstance().get('recording_transcription/get_meeting/2/').then((res) => {
+    axiosInstance().get('recording_transcription/get_meeting/1/').then((res) => {
       setMeetingOverview(res.data)
 
     }).catch((e) => new Error(e))
@@ -342,43 +343,7 @@ const Minutes = () => {
             </div>
 
             {/* notes and comments  */}
-            <div className="p-8 rounded-md shadow mt-8 ">
-              <h1 className="text-primary text-xl font-semibold">
-                Notes and Comments
-              </h1>
-              <p className="text-grayText text-base">
-                {notesAndComments.length} Comments
-              </p>
-              <div className={`h-96 overflow-scroll my-4 ${styles.scrollStyle}`}>
-                {notesAndComments.map((comment, index) => {
-                  return (
-                    <div
-                      className="py-4 border-b border-slate-300 last:border-none pr-2"
-                      key={index}
-                      style={{
-                        fontFamily: "Inter",
-                      }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Image
-                          src={comment.profilePic}
-                          alt={comment.name}
-                          width={28}
-                          height={28}
-                          className="rounded-full object-cover"
-                        />
-                        <p className="text-primary text-base font-medium">
-                          {comment.name}
-                        </p>
-                      </div>
-                      <p className="mt-2 text-grayText text-base font-medium">
-                        {comment.comment}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <NotesAndComments/>
 
             {/* meeting health  */}
 

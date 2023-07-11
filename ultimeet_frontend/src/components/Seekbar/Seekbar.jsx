@@ -8,7 +8,9 @@ import moment from 'moment'
 
 import Minutes from '@/app/minutes/page'
 
-const Seekbar = ({ data, time, avatar, onClickonUser}) => {
+import Draggable from 'react-draggable'; 
+
+const Seekbar = ({ data, time, avatar, onClickonUser, onDragStop}) => {
     
     const seekBarRef = useRef();
 
@@ -61,7 +63,9 @@ const Seekbar = ({ data, time, avatar, onClickonUser}) => {
                         ))
                         
                     }
+
                         <div className={styles.mainThumb} style={{marginLeft:`${((width * time))}px`}}></div>
+                    
                             
                 </div>
         </>

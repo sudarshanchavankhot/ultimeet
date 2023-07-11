@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import EditActionItemsPopup from "./EditActionItemsPopup";
 import { axiosInstance } from '@/api/Axios'
+import moment from 'moment';
 const TABLE_HEAD = [
   "Action Item",
   "Files",
@@ -80,19 +81,30 @@ const TABLE_ROWS = [
 export default function ActionItemTable() {
   const [open, setOpen] = useState(false);
   const [actionItem, setActionItem] = useState([])
+  const [selectedRow, setSelectedRow] = useState();
 
-  const handleOpen = () => setOpen(!open);
-  useEffect(()=>{
+  const handleOpen = (index = null) => { setOpen(!open), index != null ? setSelectedRow(actionItem[index]) : {} }
 
-    axiosInstance().get("meeting_action_tasks/get_action_items_by_meeting_id/2/").then((res)=>{
+  const saveHandler = (data) => {
+    console.log(data, "on Save")
+
+    let dataUpdate = [...actionItem]
+    let index = dataUpdate.findIndex(o => o.action_item_id === data.action_item_id)
+    dataUpdate[index] = data;
+    setActionItem(dataUpdate)
+
+  }
+  useEffect(() => {
+
+    axiosInstance().get("meeting_action_tasks/get_action_items_by_meeting_id/2/").then((res) => {
       setActionItem(res?.data)
-    
-    }).catch(e=>  new Error(e))
 
-    
-  },[])
+    }).catch(e => new Error(e))
+
+
+  }, [])
   return (
-    <div className="bg-white rounded-lg shadow-md  mt-8" style={{padding:'12px'}}>
+    <div className="bg-white rounded-lg shadow-md  mt-8" style={{ padding: '12px' }}>
       <h2 className="text-primary text-lg font-semibold text-inherit pb-3">
         Action Items
       </h2>
@@ -124,7 +136,8 @@ export default function ActionItemTable() {
                   action_item_id,
                   file,
                   owner,
-                  profilePic,
+                  owner_profile_pic,
+                  reporter_profile_pic,
                   reporter,
                   priority,
                   due_on,
@@ -164,7 +177,7 @@ export default function ActionItemTable() {
                     <td className={classes}>
                       <Typography className=" font-inter flex items-center gap-2">
                         <Image
-                          src={profp}
+                          src={owner_profile_pic || ''}
                           alt={owner}
                           width={24}
                           height={24}
@@ -178,7 +191,7 @@ export default function ActionItemTable() {
                     <td className={classes}>
                       <Typography className="font-inter flex items-center gap-2">
                         <Image
-                          src={profp}
+                          src={reporter_profile_pic || ''}
                           alt={reporter}
                           width={24}
                           height={24}
@@ -193,12 +206,10 @@ export default function ActionItemTable() {
                       <Typography className="font-inter flex items-center gap-2">
                         <span
                           className={`text-sm px-2 py-1 rounded-sm
-                        ${
-                          priority === "Urgent" && "text-[#CA0C0C] bg-[#FDEBEB]"
-                        }
-                        ${
-                          priority === "Medium" && "text-[#EEA23E] bg-[#FFF8EB]"
-                        }
+                        ${priority === "High" && `{text-[#CA0C0C] bg-[#FDEBEB] ${styles.urgentText}}`
+                            }
+                        ${priority === "Medium" && "text-[#EEA23E] bg-[#FFF8EB]"
+                            }
                         ${priority === "Low" && "text-[#2D8A39] bg-[#F0FAF0]"}
                         `}
                         >
@@ -206,10 +217,10 @@ export default function ActionItemTable() {
                         </span>
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ padding: '0px' }}>
                       <Typography className=" font-inter flex items-center gap-2">
                         <span className={`text-primary text-sm font-medium ${styles.actionItemText}`}>
-                          {due_on}
+                          {due_on ? moment(new Date(due_on.toString()).getTime()).format('DD MMM YY') : ''}
                         </span>
                       </Typography>
                     </td>
@@ -226,7 +237,7 @@ export default function ActionItemTable() {
                         variant="small"
                         className="text-primary cursor-pointer"
                       >
-                        <CiEdit fontSize={18} onClick={handleOpen} />
+                        <CiEdit fontSize={18} onClick={() => handleOpen(index)} />
                       </Typography>
                     </td>
                   </tr>
@@ -236,7 +247,7 @@ export default function ActionItemTable() {
           </tbody>
         </table>
       </Card>
-      <EditActionItemsPopup open={open} handleOpen={handleOpen} />
+      <EditActionItemsPopup onSave={saveHandler} open={open} {...selectedRow} handleOpen={() => handleOpen()} />
     </div>
   );
 }

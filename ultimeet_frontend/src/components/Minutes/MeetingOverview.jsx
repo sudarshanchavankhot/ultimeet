@@ -187,20 +187,20 @@ export default function MeetingOverview() {
   const [meetingShow, setMeetingShow] = useState(true);
   const [transcript, setTranscript] = useState({})
   const [summary, setSummary] = useState({})
-  useEffect(()=>{
+  useEffect(() => {
 
-    axiosInstance().get("recording_transcription/transcription_view/2/").then((res)=>{
+    axiosInstance().get("recording_transcription/transcription_view/3/").then((res) => {
       setTranscript(res?.data?.transcript)
-    
-    }).catch(e=>  new Error(e))
+
+    }).catch(e => new Error(e))
 
 
-    axiosInstance().get("meeting_summary/meeting/2/summary_view/").then((res)=>{
-      setSummary(res?.data)
-      console.log(res.data)
-    
-    }).catch(e=>  new Error(e))
-  },[])
+    axiosInstance().get("meeting_summary/meeting/23/summary_view/").then((res) => {
+      let summryData = res?.data;
+      setSummary(summryData)
+
+    }).catch(e => new Error(e))
+  }, [])
 
   //const { transcript_data } = transcript;
   return (
@@ -214,14 +214,13 @@ export default function MeetingOverview() {
         </h2>
         <BsChevronDown
           fontSize={18}
-          className={`cursor-pointer text-grayText ${
-            meetingShow ? "rotate-180" : "rotate-0"
-          }`}
+          className={`cursor-pointer text-grayText ${meetingShow ? "rotate-180" : "rotate-0"
+            }`}
         />
       </div>
       {meetingShow && (
         <Tabs value={activeTab} className="mt-5">
-          <TabsHeader className="bg-white shadow-none flex gap-8" style={{height:'40px'}}>
+          <TabsHeader className="bg-white shadow-none flex gap-8" style={{ height: '40px' }}>
             {data.map(({ label, value }) => {
               return (
                 <Tab
@@ -229,11 +228,10 @@ export default function MeetingOverview() {
                   key={value}
                   value={value}
                   className={`
-                  ${
-                    activeTab === value
+                  ${activeTab === value
                       ? "text-blue-500  shadow-none border-0 rounded-none border-b border-[#437EF7] "
                       : ""
-                  }
+                    }
                     w-max px-8 ${styles.tabBg}
                 `}
                 >
@@ -245,42 +243,44 @@ export default function MeetingOverview() {
           <TabsBody className="border-t border-[#e7e9eb]">
             <TabPanel value={"transcript"}>
               <div className={`${styles.transcriptContainer}`}>
-                { 
-                transcript.length > 0 ? transcript.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        fontFamily: "Inter",
-                      }}
-                    >
-                      <p className="text-[#919BA7] text-base py-2 text-medium" style={{fontSize:'13px'}}>
-                        {moment.utc(item.start_time*1000).format('mm:ss')} - {moment.utc(item.end_time*1000).format('mm:ss')} : {item.speaker}
-                      </p>
-                      <div className="flex  gap-3 py-2 pb-3">
-                        <Image
-                          src={item.avatar}
-                          width={28}
-                          height={28}
-                          style={{width:"28px", height:'28px'}}
-                          alt={"speaker"}
-                          className="rounded-full"
-                        />
-                        <p className={`text-primary text-base font-medium ${styles.summaryText}`}>
-                          {item?.text}
+                {
+                  transcript.length > 0 ? transcript.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          fontFamily: "Inter",
+                        }}
+                      >
+                        <p className="text-[#919BA7] text-base py-2 text-medium" style={{ fontSize: '13px' }}>
+                          {moment.utc(item.start_time * 1000).format('mm:ss')} - {moment.utc(item.end_time * 1000).format('mm:ss')} : {item.speaker}
                         </p>
+                        <div className="flex  gap-3 py-2 pb-3">
+                          <Image
+                            src={item.avatar}
+                            width={28}
+                            height={28}
+                            style={{ width: "28px", height: '28px' }}
+                            alt={"speaker"}
+                            className="rounded-full"
+                          />
+                          <p className={`text-primary text-base font-medium ${styles.summaryText}`}>
+                            {
+                              item?.text.length > 300 ? `${item?.text.slice(0, 300)}` : item?.text
+                            }
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                }):<></>}
+                    );
+                  }) : <></>}
               </div>
             </TabPanel>
             <TabPanel value={"conversationSummary"}>
               <div className={`${styles.summaryText}`}>
-                {
+                {/* {
                  summary?.summary
                 }
-                {/* <div
+                <div
                   style={{
                     fontFamily: "Inter",
                   }}
@@ -327,31 +327,34 @@ export default function MeetingOverview() {
                       })}
                     </ul>
                   </div>
-                </div>
+                </div> */}
+                
                 <div
                   style={{
                     fontFamily: "Inter",
                   }}
                 >
                   <p className="text-primary text-base py-2 font-medium">
-                    Solutions
+                    {summary?.summary?.title}
                   </p>
                   <div className="flex items-center gap-3 py-1 pb-3">
+                    {JSON.stringify(summary?.bullets)}
                     <ul>
-                      {data[1].desc.solutions.map((points, index) => {
+                      {summary?.summary?.bullets.map((points, index) => {
                         return (
                           <ol
                             key={index}
-                            className="text-grayText text-base py-1 flex "
+                            className={`text-grayText text-base py-1 flex ${styles.summaryText}`}
                           >
-                            <p className="mr-2">{index + 1}</p>
-                            {points} .
+                            <p className={`mr-2 ${styles.summaryText}`}>{index + 1}.</p>
+                            {points}.
                           </ol>
                         );
                       })}
                     </ul>
                   </div>
-                </div> */}
+                </div>
+              
               </div>
             </TabPanel>
           </TabsBody>

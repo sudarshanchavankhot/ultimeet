@@ -240,7 +240,7 @@ export const reporterList = [
 ];
 export const priorityList = [
   {
-    name: "Urgent",
+    name: "High",
   },
   {
     name: "Low",
@@ -250,14 +250,15 @@ export const priorityList = [
   },
 ];
 export const statusList = [
+  
+  {
+    name: "Open",
+  },
   {
     name: "In Progress",
   },
   {
-    name: "To Do",
-  },
-  {
-    name: "Completed",
+    name: "Approved",
   },
 ];
 
