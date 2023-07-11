@@ -23,12 +23,15 @@ import {
 
 import { useEffect, useState } from "react";
 import { axiosInstance } from '@/api/Axios'
+import moment from 'moment';
 /*
 {owner, reporter, priority, due_on, status}
 */
 
+
 export default function EditActionItemsPopup({action_item_id,name, open, handleOpen, owner, reporter, priority, due_on, status, onSave }) {
-   const [participentlist, setParticipentlist] = useState({});
+  console.log(moment(new Date(due_on)).format('YYYY-MM-DD'), "RX") 
+  const [participentlist, setParticipentlist] = useState({});
    const [Due_on, setDueOn] = useState(due_on)
    const [Owner, setowner] = useState(owner)
    const [Reporter, setReporter] = useState(reporter)
@@ -37,6 +40,7 @@ export default function EditActionItemsPopup({action_item_id,name, open, handleO
    const [dependency, setDependency ] = useState("")
    const [comments, setComments ] = useState("")
    const [resquest, setRequest] = useState({})
+   ////setDueOn(moment(new Date(due_on)).format('YYYY-MM-DD'))
   useEffect(()=>{
    axiosInstance().get("recording_transcription/users_list/").then((res)=>{
       setParticipentlist(res.data)
@@ -65,7 +69,7 @@ export default function EditActionItemsPopup({action_item_id,name, open, handleO
       "owner": Owner,
       "reporter": Reporter,
       "priority": Priority,
-      "due_on": Due_on,
+      "due_on": Due_on || "2023-07-16",
       "status": Status,
       "actions": "",
       "dependencies": dependency,
@@ -95,8 +99,9 @@ export default function EditActionItemsPopup({action_item_id,name, open, handleO
   }
    // co
   const handleDateChange =($event)=>{
-    console.log($event.target.value,"$event.target.valu")
-    setDueOn($event.target.value)
+    console.log($event.target.value,"$event.target.value")
+    ;
+    setDueOn(moment(new Date($event.target.value)).format('YYYY-MM-DD'))
    // console.log($event.target.value);
   }
   const  handleDependencyChange =($event)=>{
@@ -170,7 +175,7 @@ export default function EditActionItemsPopup({action_item_id,name, open, handleO
                 <DropDownnComp label="Priority" list={priorityList} onSelectValue={handlePriorityChange} selectedValue={priority}  />
               </div>
               <Input type="date" label="Due on" onChange={handleDateChange} value={Due_on} className="col-span-1" />
-              <p>{Due_on}</p>
+              
             </div>
             <div className="grid grid-flow-col grid-cols-2 gap-8 mt-6">
               <div className="col-span-1">

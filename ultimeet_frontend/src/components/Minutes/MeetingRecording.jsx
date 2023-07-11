@@ -51,7 +51,7 @@ const MeetingRecoring = () => {
     const onClickUser =(data) =>{
         vidRef.current.currentTime = data/1000;
         vidRef.current.play();
-        setPlay(!play) 
+        setPlay(true) 
     }
 
     const onTimeUpdate = () => {

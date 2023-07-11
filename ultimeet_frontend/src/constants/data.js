@@ -63,29 +63,14 @@ export const profilePic =
 export const userDetails = {
   attend: [
     {
-      profilePic,
-      name: "John Doe",
+      profilePics:"https://media.istockphoto.com/id/1504194952/photo/pretty-smiling-joyfully-female-dressed-casually-smiling-looking-with-satisfaction-at-camera.webp?b=1&s=170667a&w=0&k=20&c=Ll31aFaWj2omz-4wqxrsOWXwLJ5XfZEm8YUehHEbWGU=",
+      name: "Lyra",
     },
     {
-      profilePic,
-      name: "Harry Porter",
+      profilePics:"https://media.istockphoto.com/id/1317783028/photo/side-view-silhouette-of-business-man-isolate-on-white.jpg?s=612x612&w=0&k=20&c=gTU9UsKfxQ9m_RcrHl-iaAGUhsg-GPgQJ867u8zYc7w=",
+      name: "Dayne John",
     },
-    {
-      profilePic,
-      name: "Itachi Uchiha",
-    },
-    {
-      profilePic,
-      name: "Peter Parker",
-    },
-    {
-      profilePic,
-      name: "Jhonny Hills",
-    },
-    {
-      profilePic,
-      name: "Sally",
-    },
+    
   ],
   absent: [
     {

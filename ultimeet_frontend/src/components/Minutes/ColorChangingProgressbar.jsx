@@ -4,7 +4,7 @@ import "react-circular-progressbar/dist/styles.css";
 import Image from "next/image"; // Assuming you're using Next.js and have the `next/image` package installed
 import { profilePic } from "@/constants/data";
 
-const ColorChangingProgressBar = ({ percentage, color }) => {
+const ColorChangingProgressBar = ({profilePics, percentage, color }) => {
   return (
     <div className="flex items-center flex-col justify-center">
       <div className="w-12 h-12">
@@ -21,7 +21,7 @@ const ColorChangingProgressBar = ({ percentage, color }) => {
           }}
         />
         <Image
-          src={profilePic}
+          src={profilePics}
           alt="user"
           width={44}
           height={44}
